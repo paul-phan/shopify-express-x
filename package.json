@@ -1,0 +1,56 @@
+{
+  "name": "shopify-express-x",
+  "version": "0.0.1",
+  "author": "Minh Phan",
+  "description": "Alternative for @shopify/express - Get up and running quickly with Express.js and the Shopify API.",
+  "keywords": [
+    "shopify",
+    "express.js",
+    "express middleware"
+  ],
+  "bugs": "https://github.com/paul-phan/shopify-express-x/issues",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paul-phan/shopify-express-x.git"
+  },
+  "engines": {
+    "node": ">=8.1.0"
+  },
+  "scripts": {
+    "prettier:check": "prettier-check --single-quote --trailing-comma=all {middleware,routes,shopStore}{/*,/**/*}.{js}",
+    "prettier:fix": "prettier --single-quote --trailing-comma=all --write {middleware,routes,shopStore}{/*,/**/*}.{js}",
+    "precommit": "lint-staged",
+    "test": "jest",
+    "test:ci": "jest --ci"
+  },
+  "lint-staged": {
+    "*.{js}": [
+      "prettier:check"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "connect-redis": "^3.3.3",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "knex": "^0.15.2",
+    "node-fetch": "^2.2.0",
+    "prop-types": "^15.6.2",
+    "raw-body": "^2.3.3",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-prettier": "^2.6.2",
+    "find-free-port": "^2.0.0",
+    "husky": "^0.14.3",
+    "jest": "^23.5.0",
+    "lint-staged": "^7.2.2",
+    "prettier": "^1.14.2",
+    "prettier-check": "^2.0.0"
+  }
+}
