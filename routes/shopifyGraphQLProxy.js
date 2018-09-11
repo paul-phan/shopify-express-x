@@ -11,7 +11,7 @@ module.exports = function shopifyGraphQLProxy() {
             return next();
         }
 
-        if (accessToken == null || shop == null) {
+        if (!accessToken || !shop) {
             return res.status(403).send('Unauthorized');
         }
 

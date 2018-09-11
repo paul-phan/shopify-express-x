@@ -41,14 +41,17 @@ module.exports = async function shopifyApiProxy(incomingRequest, response, next)
       : '';
 
     const url = `https://${shop}/admin${pathname}${searchString}`;
-    const result = await fetch(url, {
-      method,
-      body,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Access-Token': accessToken,
-      },
-    });
+    const options = {
+        method,
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Shopify-Access-Token': accessToken,
+        },
+    }
+    if (method !== 'GET' && method !== 'HEAD') {
+        options.body = body
+    }
+    const result = await fetch(url, options);
 
     const data = await result.text();
     response.status(result.status).send(data);
