@@ -23,7 +23,7 @@ module.exports = function createShopifyAuthRoutes({
         return response.status(400).send('Expected a shop query parameter');
       }
 
-      if (!request.cookies[TEST_COOKIE_NAME]) {
+      if (request.cookies && !request.cookies[TEST_COOKIE_NAME]) {
         // This is to avoid a redirect loop if the app doesn't use verifyRequest or set the test cookie elsewhere.
         response.cookie(TEST_COOKIE_NAME, '1');
         topLevelRedirect(response, `${host}${baseUrl}/enable_cookies?${querystring.stringify({shop})}`);
@@ -43,7 +43,7 @@ module.exports = function createShopifyAuthRoutes({
         redirectParams['grant_options[]'] = 'per-user';
       }
 
-      if (!request.cookies[TOP_LEVEL_OAUTH_COOKIE_NAME]) {
+      if (request.cookies && !request.cookies[TOP_LEVEL_OAUTH_COOKIE_NAME]) {
         response.cookie(TOP_LEVEL_OAUTH_COOKIE_NAME, '1');
         topLevelRedirect(response, `${redirectTo}?${querystring.stringify(redirectParams)}`);
         return;
