@@ -97,7 +97,7 @@ module.exports = function createShopifyAuthRoutes({
       const accessToken = responseBody.access_token;
 
       try {
-        const {token} = await shopStore.storeShop({ accessToken, shop })
+        await shopStore.storeShop({ accessToken, shop })
 
         if (request.session) {
           request.session.accessToken = accessToken;
