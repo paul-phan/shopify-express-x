@@ -33,7 +33,8 @@ module.exports = function configureWithWebhook({ secret, shopStore }) {
       } catch (error) {
         response.status(401).send();
         onVerified(new Error("Unable to verify request HMAC"));
-        return;
+      } finally {
+        next()
       }
     };
   }
