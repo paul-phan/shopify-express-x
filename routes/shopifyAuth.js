@@ -78,25 +78,27 @@ module.exports = function createShopifyAuthRoutes({
         return response.status(400).send('Expected a shop query parameter');
       }
 
-      const requestBody = querystring.stringify({
-        code,
-        client_id: apiKey,
-        client_secret: secret,
-      });
 
-      const remoteResponse = await fetch(`https://${shop}/admin/oauth/access_token`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Content-Length': Buffer.byteLength(requestBody),
-        },
-        body: requestBody,
-      });
-
-      const responseBody = await remoteResponse.json();
-      const accessToken = responseBody.access_token;
 
       try {
+        const requestBody = querystring.stringify({
+          code,
+          client_id: apiKey,
+          client_secret: secret,
+        });
+
+        const remoteResponse = await fetch(`https://${shop}/admin/oauth/access_token`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Length': Buffer.byteLength(requestBody),
+          },
+          body: requestBody,
+        });
+
+        const responseBody = await remoteResponse.json();
+        const accessToken = responseBody.access_token;
+
         await shopStore.storeShop({ accessToken, shop })
 
         if (request.session) {
