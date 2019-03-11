@@ -96,19 +96,27 @@ module.exports = function createShopifyAuthRoutes({
           body: requestBody,
         });
 
-        const responseBody = await remoteResponse.json();
-        const accessToken = responseBody.access_token;
-
-        await shopStore.storeShop({ accessToken, shop })
-
-        if (request.session) {
-          request.session.accessToken = accessToken;
-          request.session.shop = shop;
-        } else {
-          console.warn('Session not present on request, please install a session middleware.');
+        let responseBody = await remoteResponse.text()
+        if (typeof responseBody === "string") {
+          responseBody = JSON.parse(responseBody)
         }
 
-        afterAuth(request, response);
+        const accessToken = responseBody.access_token;
+        if (accessToken) {
+          await shopStore.storeShop({accessToken, shop})
+          if (request.session) {
+            request.session.accessToken = accessToken;
+            request.session.shop = shop;
+          } else {
+            console.warn('Session not present on request, please install a session middleware.');
+          }
+
+          afterAuth(request, response);
+        } else {
+          console.warn('Access token not generated.')
+          const err = new Error('Access token not generated.')
+          return next(err)
+        }
       } catch (error) {
         console.error('🔴 Error storing shop access token', error);
         next(error);
