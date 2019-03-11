@@ -1,6 +1,6 @@
 {
   "name": "shopify-express-x",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": "Minh Phan",
   "description": "Alternative for @shopify/express - Get up and running quickly with Express.js and the Shopify API.",
   "keywords": [
