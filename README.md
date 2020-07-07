@@ -2,14 +2,13 @@
 
 A small set of abstractions that will help you quickly build an Express.js app that consumes the Shopify API.
 
-:exclamation: **This project is currently in alpha status**. This means that the API could change at any time. It also means that your feedback will have a big impact on how the project evolves, so please feel free to [open issues](https://github.com/shopify/shopify-express/issues) if there is something you would like to see added.
 
 
 ## Example
 
 ```javascript
 const express = require('express');
-const shopifyExpress = require('@shopify/shopify-express');
+const shopifyExpress = require('shopify-express-x');
 const session = require('express-session');
 
 const app = express();
@@ -154,9 +153,6 @@ Express middleware that validates the presence of your shop session. The paramet
 
 Express middleware that validates the presence of a valid HMAC signature to allow webhook requests from shopify to your app.
 
-## Example app
-
-You can look at [shopify-node-app](https://github.com/shopify/shopify-node-app) for a complete working example.
 
 ## Gotchas
 
