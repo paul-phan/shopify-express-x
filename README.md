@@ -1,9 +1,13 @@
-# shopify-express
+# shopify-express-x
 
 A small set of abstractions that will help you quickly build an Express.js app that consumes the Shopify API.
 
 
 
+## Install
+```bash
+yarn add shopify-express-x
+```
 ## Example
 
 ```javascript
