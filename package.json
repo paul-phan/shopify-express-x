@@ -1,6 +1,6 @@
 {
   "name": "shopify-express-x",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "author": "Minh Phan",
   "description": "Alternative for @shopify/express - Get up and running quickly with Express.js and the Shopify API.",
   "keywords": [
@@ -20,10 +20,7 @@
   },
   "scripts": {
     "prettier:check": "prettier-check --single-quote --trailing-comma=all {middleware,routes,shopStore}{/*,/**/*}.{js}",
-    "prettier:fix": "prettier --single-quote --trailing-comma=all --write {middleware,routes,shopStore}{/*,/**/*}.{js}",
-    "precommit": "lint-staged",
-    "test": "jest",
-    "test:ci": "jest --ci"
+    "prettier:fix": "prettier --single-quote --trailing-comma=all --write {middleware,routes,shopStore}{/*,/**/*}.{js}"
   },
   "lint-staged": {
     "*.{js}": [
@@ -52,7 +49,6 @@
     "lint-staged": "^10.5.4",
     "nock": "^13.0.7",
     "prettier": "^2.2.1",
-    "prettier-check": "^2.0.0",
-    "supertest": "^6.1.3"
+    "prettier-check": "^2.0.0"
   }
 }
