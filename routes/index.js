@@ -16,9 +16,9 @@ module.exports = function createRouter(shopifyConfig) {
         '/api',
         rawParser,
         verifyApiCall,
-        shopifyApiProxy,
+        shopifyApiProxy(shopifyConfig),
     );
-    router.use(shopifyGraphQLProxy());
+    router.use(shopifyGraphQLProxy(shopifyConfig));
 
     return router;
 };

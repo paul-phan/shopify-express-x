@@ -13,51 +13,54 @@ const DISALLOWED_URLS = [
   '/oauth',
 ];
 
-module.exports = async function shopifyApiProxy(incomingRequest, response, next) {
-  const { query, method, path: pathname, body, session } = incomingRequest;
+module.exports = async function shopifyApiProxy(config) {
+  const {apiVersion} = config
+  return async (incomingRequest, response, next) => {
+    const { query, method, path: pathname, body, session } = incomingRequest;
 
-  if (session == null) {
-    console.error('A session middleware must be installed to use ApiProxy.')
-    response.status(401).send(new Error('Unauthorized'));
-    return;
-  }
-
-  const { shop, accessToken } = session;
-
-  if (shop == null || accessToken == null) {
-    response.status(401).send(new Error('Unauthorized'));
-    return;
-  }
-
-  if (!validRequest(pathname)) {
-    response.status(403).send('Endpoint not in whitelist');
-    return;
-  }
-
-  try {
-    const searchParams = querystring.stringify(query);
-    const searchString = searchParams.length > 0
-      ? `?${searchParams}`
-      : '';
-
-    const url = `https://${shop}/admin${pathname}${searchString}`;
-    const options = {
-      method,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Access-Token': accessToken,
-      },
+    if (session == null) {
+      console.error('A session middleware must be installed to use ApiProxy.')
+      response.status(401).send(new Error('Unauthorized'));
+      return;
     }
-    if (method !== 'GET' && method !== 'HEAD') {
-      options.body = body
-    }
-    const result = await fetch(url, options);
 
-    const data = await result.json();
-    response.status(result.status).json(data);
-  } catch (error) {
-    console.log(error);
-    response.status(500).json(error);
+    const { shop, accessToken } = session;
+
+    if (shop == null || accessToken == null) {
+      response.status(401).send(new Error('Unauthorized'));
+      return;
+    }
+
+    if (!validRequest(pathname)) {
+      response.status(403).send('Endpoint not in whitelist');
+      return;
+    }
+
+    try {
+      const searchParams = querystring.stringify(query);
+      const searchString = searchParams.length > 0
+        ? `?${searchParams}`
+        : '';
+
+      const url = `https://${shop}/admin/${apiVersion}${pathname}${searchString}`;
+      const options = {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Shopify-Access-Token': accessToken,
+        },
+      }
+      if (method !== 'GET' && method !== 'HEAD') {
+        options.body = body
+      }
+      const result = await fetch(url, options);
+
+      const data = await result.json();
+      response.status(result.status).json(data);
+    } catch (error) {
+      console.log(error);
+      response.status(500).json(error);
+    }
   }
 };
 

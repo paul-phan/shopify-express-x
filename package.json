@@ -1,6 +1,6 @@
 {
   "name": "shopify-express-x",
-  "version": "0.0.9",
+  "version": "0.1.1",
   "author": "Minh Phan",
   "description": "Alternative for @shopify/express - Get up and running quickly with Express.js and the Shopify API.",
   "keywords": [
@@ -35,24 +35,24 @@
   },
   "dependencies": {
     "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.4",
+    "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
-    "express-http-proxy": "^1.5.1",
-    "express-session": "^1.16.2",
-    "node-fetch": "^2.6.0",
+    "express-http-proxy": "^1.6.2",
+    "express-session": "^1.17.1",
+    "node-fetch": "^2.6.1",
     "prop-types": "^15.7.2",
     "raw-body": "^2.4.1",
     "url": "^0.11.0"
   },
   "devDependencies": {
-    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
     "find-free-port": "^2.0.0",
-    "husky": "^3.0.0",
-    "jest": "^24.8.0",
-    "lint-staged": "^9.0.2",
-    "nock": "^10.0.6",
-    "prettier": "^1.18.2",
+    "husky": "^5.1.1",
+    "jest": "^26.6.3",
+    "lint-staged": "^10.5.4",
+    "nock": "^13.0.7",
+    "prettier": "^2.2.1",
     "prettier-check": "^2.0.0",
-    "supertest": "^4.0.2"
+    "supertest": "^6.1.3"
   }
 }

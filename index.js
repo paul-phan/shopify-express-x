@@ -11,11 +11,13 @@ const ShopifyConfigTypes = {
   afterAuth: PropTypes.func.isRequired,
   shopStore: PropTypes.object,
   accessMode: PropTypes.oneOf(['offline', 'online']),
+  apiVersion: PropTypes.string
 };
 
 const defaults = {
   shopStore: new MemoryStrategy(),
-  accessMode: 'offline'
+  accessMode: 'offline',
+  apiVersion: '2021-01'
 };
 
 module.exports = function shopify(shopifyConfig) {

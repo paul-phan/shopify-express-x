@@ -1,10 +1,12 @@
 const proxy = require('express-http-proxy');
 
 const PROXY_BASE_PATH = '/graphql';
-const GRAPHQL_PATH = '/admin/api/graphql.json';
 
-module.exports = function shopifyGraphQLProxy() {
-    return function shopifyGraphQLProxyMiddleware(req, res, next) {
+module.exports = function shopifyGraphQLProxy(shopifyConfig) {
+  const {apiVersion} = shopifyConfig
+  const GRAPHQL_PATH = `/admin/api/${apiVersion}/graphql.json`;
+
+  return function shopifyGraphQLProxyMiddleware(req, res, next) {
         const { session: { shop, accessToken } } = req;
 
         if (req.path !== PROXY_BASE_PATH || req.method !== 'POST') {
