@@ -14,9 +14,9 @@ const DISALLOWED_URLS = [
 ];
 const SHOPIFY_API_VERSION = process.env.SHOPIFY_API_VERSION || '2020-07';
 
-module.exports = async function shopifyApiProxy(config) {
+module.exports = function shopifyApiProxy(config) {
   const {apiVersion} = config
-  return async (incomingRequest, response, next) => {
+  return async function (incomingRequest, response, next) {
     const { query, method, path: pathname, body, session } = incomingRequest;
 
     if (session == null) {
