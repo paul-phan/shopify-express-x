@@ -12,6 +12,7 @@ const DISALLOWED_URLS = [
   '/webhooks',
   '/oauth',
 ];
+const SHOPIFY_API_VERSION = process.env.SHOPIFY_API_VERSION || '2020-07';
 
 module.exports = async function shopifyApiProxy(config) {
   const {apiVersion} = config
@@ -42,7 +43,7 @@ module.exports = async function shopifyApiProxy(config) {
         ? `?${searchParams}`
         : '';
 
-      const url = `https://${shop}/admin/${apiVersion}${pathname}${searchString}`;
+      const url = `https://${shop}/admin/api/${apiVersion}${pathname}${searchString}`;
       const options = {
         method,
         headers: {
