@@ -33,4 +33,3 @@ module.exports = function shopifyGraphQLProxy(shopifyConfig) {
 };
 
 module.exports.PROXY_BASE_PATH = PROXY_BASE_PATH;
-module.exports.GRAPHQL_PATH = GRAPHQL_PATH;
