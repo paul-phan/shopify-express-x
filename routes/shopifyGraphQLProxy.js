@@ -7,17 +7,22 @@ module.exports = function shopifyGraphQLProxy(shopifyConfig) {
   const GRAPHQL_PATH = `/admin/api/${apiVersion}/graphql.json`;
 
   return function shopifyGraphQLProxyMiddleware(req, res, next) {
-        const { session: { shop, accessToken } } = req;
+    if (!req.session) {
+      console.error("A session middleware must be installed to use ApiProxy.");
+      response.status(401).send(new Error("Unauthorized"));
+      return;
+    }
+    const { session: { shop, accessToken } } = req;
 
-        if (req.path !== PROXY_BASE_PATH || req.method !== 'POST') {
-            return next();
-        }
+    if (req.path !== PROXY_BASE_PATH || req.method !== "POST") {
+      return next();
+    }
 
-        if (!accessToken || !shop) {
-            return res.status(403).send('Unauthorized');
-        }
+    if (!accessToken || !shop) {
+      return res.status(403).send("Unauthorized");
+    }
 
-        proxy(shop, {
+    proxy(shop, {
             https: true,
             parseReqBody: false,
             proxyReqOptDecorator(proxyReqOpts, srcReq) {
